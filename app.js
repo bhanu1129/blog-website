@@ -19,7 +19,6 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res){
   res.render("home", {homeContent: homeStartingContent, posts: posts});
-  // console.log(posts);
 });
 
 app.get("/about", function(req, res){
@@ -30,8 +29,22 @@ app.get("/contact", function(req, res){
   res.render("contact", {contactContent: contactContent});
 });
 
-app.get("/compose", function(req,res){
+app.get("/compose", function(req, res){
   res.render("compose");
+});
+
+app.get("/posts/:title", function(req, res){
+  console.log(req.params);
+
+  posts.forEach(function(post){
+    if(post.title === req.params.title){
+      console.log("Match Found");
+    }else{
+      console.log("Not a Match"); 
+    }
+  });
+
+  res.redirect("/");
 });
 
 app.post("/compose", function(req, res){
